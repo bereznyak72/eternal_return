@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/vechno.png" type="image/x-icon">
+    <title>Архив Переживаний - Вечный Возврат</title>
+    <meta name="description" content="Хроники разбитых сердец в зеркале мировой литературы. Исследуйте трагедии всепоглощающей страсти и элегии несбывшегося.">
+    <meta name="keywords" content="литература, архив, переживания, страсть, трагедия, элегия">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Old+Standard+TT&display=swap');
+        
+        :root {
+            --dark-bg: #1a1a1a;
+            --text-color: #f5f1e6;
+            --accent-color: #a83232;
+            --secondary-color: #7a7a7a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Old Standard TT', serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.7;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><rect fill="none" stroke="%23a83232" stroke-width="2" x="10" y="10" width="80" height="80"/></svg>');
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 18px 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--secondary-color);
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: color 0.3s, transform 0.2s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            text-align: center;
+            padding: 130px 0 70px;
+        }
+        
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-subtitle {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        .gallery-item {
+            margin-bottom: 90px;
+            padding: 45px;
+            background: rgba(139, 0, 0, 0.05);
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.3rem;
+            margin-bottom: 1.8rem;
+            color: var(--accent-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .quote-block {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 28px;
+            margin: 28px 0;
+            font-style: italic;
+            font-size: 1.3rem;
+            background: rgba(139, 0, 0, 0.08);
+            padding: 22px 28px;
+            border-radius: 0 5px 5px 0;
+            line-height: 1.7;
+        }
+        
+        .commentary {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .literary-examples {
+            margin-top: 35px;
+            padding: 25px;
+            background: rgba(139, 0, 0, 0.1);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .examples-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+            color: var(--accent-color);
+        }
+        
+        .literary-examples p {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .literary-examples strong {
+            color: var(--accent-color);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            margin: 50px 0;
+            border-radius: 3px;
+            letter-spacing: 1px;
+        }
+        
+        .back-btn:hover {
+            background: var(--accent-color);
+            color: var(--text-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1rem;
+            color: var(--secondary-color);
+            border-top: 1px solid var(--secondary-color);
+            margin-top: 70px;
+        }
+        
+        @media (max-width: 900px) {
+            .page-title {
+                font-size: 2.8rem;
+            }
+            
+            .gallery-item {
+                padding: 30px;
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .page-title {
+                font-size: 2.3rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .gallery-item {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-title {
+                font-size: 1.7rem;
+            }
+            
+            .quote-block {
+                padding: 18px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Вечный Возврат</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="pharmacy.html" class="nav-link">Аптека Души</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Заголовок страницы -->
+        <header class="page-header">
+            <h1 class="page-title">Архив Переживаний</h1>
+            <p class="page-subtitle">Хроники разбитых сердец в зеркале мировой литературы</p>
+        </header>
+        
+        <!-- Расширенная галерея -->
+        <section>
+            <div class="gallery-item">
+                <h2 class="gallery-title">Трагедия всепоглощающей страсти</h2>
+                <div class="quote-block">
+                    «Он никогда и не узнает, как я его люблю! И люблю не потому, что он красив, Нелли, а потому, что он больше я, чем я сама. Из чего бы ни были сотворены наши души, его душа и моя — одно»<br>
+                    <span style="color: var(--accent-color); display: block; margin-top: 10px;">— Эмили Бронте, «Грозовой перевал»</span>
+                </div>
+                <p class="commentary">Когда любовь становится религией, а возлюбленный — божеством, его уход оставляет после себя не просто пустоту, а крушение всей вселенной. Мы становимся Кэтрин, бродящими по вересковым пустошам в поисках своего Хитклифа, не понимая, что ищем не человека, а часть собственной души.</p>
+                <p class="commentary">Страсть в "Грозовом перевале" достигает таких масштабов, что стирает границы между жизнью и смертью. Кэтрин восклицает: "Я и есть Хитклиф!" — демонстрируя полное слияние идентичностей. Это не просто любовь, это метафизическое единство, разрыв которого равносилен духовной смерти.</p>
+                
+                <div class="literary-examples">
+                    <h3 class="examples-title">Литературные параллели:</h3>
+                    <p><strong>"Ромео и Джульетта" Шекспира</strong> — любовь как фатум, предопределенный звездами.</p>
+                    <p><strong>"Лолита" Набокова</strong> — всепоглощающая страсть как болезнь, разрушающая личность.</p>
+                    <p><strong>"Поющие в терновнике" Маккалоу</strong> — запретная любовь, длящаяся всю жизнь.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <h2 class="gallery-title">Элегия несбывшегося</h2>
+                <div class="quote-block">
+                    «Так мы и пытаемся плыть вперед, борясь с течением, а оно все сносит и сносит наши суденышки обратно в прошлое.»<br>
+                    <span style="color: var(--accent-color); display: block; margin-top: 10px;">— Фрэнсис Скотт Фицджеральд, «Великий Гэтсби»</span>
+                </div>
+                <p class="commentary">Мы строим замки из памяти и носим их в себе как реликвии. Гэтсби верил в зеленый огонек, а мы — в сообщения, которые никогда не придут. Как и он, мы пытаемся воссоздать прошлое, не понимая, что оно ушло навсегда, оставив лишь призрачный след в настоящем.</p>
+                <p class="commentary">Трагедия Гэтсби — это трагедия человека, пытающегося остановить время. Его особняк, вечеринки, богатство — все это попытка создать иллюзию, что пять лет, прошедшие с момента его расставания с Дэзи, не имели значения. Но время неумолимо, и зеленый огонек на противоположном берегу залива остается недостижимым символом несбывшейся мечты.</p>
+                
+                <div class="literary-examples">
+                    <h3 class="examples-title">Литературные параллели:</h3>
+                    <p><strong>"Госпожа Бовари" Флобера</strong> — разрыв между романтическими идеалами и прозаической реальностью.</p>
+                    <p><strong>"Обломов" Гончарова</strong> — мечтательность как побег от действительности.</p>
+                    <p><strong>"Портрет Дориана Грея" Уайльда</strong> — тщетная попытка сохранить молодость и красоту.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <h2 class="gallery-title">Анатомия саморазрушения</h2>
+                <div class="quote-block">
+                    «Ей хотелось умереть и в то же время хотелось жить в Париже.»<br>
+                    <span style="color: var(--accent-color); display: block; margin-top: 10px;">— Гюстав Флобер, «Мадам Бовари»</span>
+                </div>
+                <p class="commentary">Когда реальность не может сравниться с мечтой, мы начинаем умирать при жизни. Современные Эммы Бовари ищут спасения в чужих взглядах, в путешествиях, в новых профилях в соцсетях. Но побег от себя — это самый длинный и безнадежный путь.</p>
+                <p class="commentary">Эмма Бовари — классический пример того, как романтические иллюзии ведут к экзистенциальному кризису. Воспитанная на романах, она ждет от жизни страстей и драматизма, но сталкивается с банальностью провинциального быта. Ее любовные связи — не поиск настоящего чувства, а попытка убежать от скуки собственного существования.</p>
+                
+                <div class="literary-examples">
+                    <h3 class="examples-title">Литературные параллели:</h3>
+                    <p><strong>"Преступление и наказание" Достоевского</strong> — саморазрушение через преступление против морали.</p>
+                    <p><strong>"Страдания юного Вертера" Гёте</strong> — романтический герой, не находящий места в реальном мире.</p>
+                    <p><strong>"Над пропастью во ржи" Сэлинджера</strong> — неприятие лицемерия взрослого мира.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="index.html" class="back-btn">Вернуться на Главную</a>
+            </div>
+        </section>
+        
+        <!-- Футер -->
+        <footer>
+            <p>Архив Переживаний — часть вечной книги любви человечества</p>
+        </footer>
+    </div>
+</body>
+</html>

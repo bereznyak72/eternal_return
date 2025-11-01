@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/vechno.png" type="image/x-icon">
+    <title>Вечный Возврат - Архив литературных переживаний</title>
+    <meta name="description" content="Архив литературных переживаний и сердечных ран. Исследуйте хроники разбитых сердец в зеркале мировой литературы.">
+    <meta name="keywords" content="литература, любовь, страдание, архив, книги, цитаты">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Old+Standard+TT&display=swap');
+        
+        :root {
+            --dark-bg: #1a1a1a;
+            --text-color: #f5f1e6;
+            --accent-color: #a83232;
+            --secondary-color: #7a7a7a;
+            --highlight-color: #d14343;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Old Standard TT', serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.7;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><rect fill="none" stroke="%23a83232" stroke-width="2" x="10" y="10" width="80" height="80"/></svg>');
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        /* Навигация */
+        .nav {
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 18px 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--secondary-color);
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: color 0.3s, transform 0.2s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Заставка */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 25px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--dark-bg) 70%);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 2.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 400;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero .quote {
+            font-size: 1.4rem;
+            max-width: 700px;
+            font-style: italic;
+            margin-bottom: 3.5rem;
+            position: relative;
+            padding: 0 25px;
+            line-height: 1.8;
+        }
+        
+        .hero .quote::before,
+        .hero .quote::after {
+            content: '"';
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            position: absolute;
+            opacity: 0.7;
+        }
+        
+        .hero .quote::before {
+            top: -15px;
+            left: 0;
+        }
+        
+        .hero .quote::after {
+            bottom: -25px;
+            right: 0;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-15px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-7px) translateX(-50%);
+            }
+        }
+        
+        /* Основное содержимое */
+        section {
+            padding: 90px 0;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+        
+        .intro {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .gallery-item {
+            margin-bottom: 70px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+            padding: 25px;
+            border-radius: 5px;
+            transition: all 0.5s;
+        }
+        
+        .gallery-item:hover {
+            background: rgba(139, 0, 0, 0.05);
+        }
+        
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .quote-block {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            background: rgba(139, 0, 0, 0.05);
+            padding: 20px 25px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .commentary {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        /* Аптека для души */
+        .pharmacy {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            margin-top: 50px;
+        }
+        
+        .remedy {
+            background: rgba(139, 0, 0, 0.1);
+            padding: 30px;
+            border: 1px solid var(--secondary-color);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-radius: 5px;
+        }
+        
+        .remedy:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .remedy-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .remedy-title::before {
+            content: "♡";
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+        
+        .remedy-description {
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        /* Новые разделы - улучшенный дизайн */
+        .new-sections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .section-card {
+            background: linear-gradient(145deg, rgba(139, 0, 0, 0.08), rgba(26, 26, 26, 0.5));
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 35px 25px;
+            transition: all 0.4s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .section-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .section-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card:hover .section-icon {
+            transform: scale(1.1);
+        }
+        
+        .section-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .section-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .section-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s;
+            border-radius: 3px;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .section-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+        
+        .section-btn:hover {
+            color: var(--text-color);
+        }
+        
+        .section-btn:hover::before {
+            left: 0;
+        }
+        
+        /* Кнопки */
+        .btn-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .archive-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+            letter-spacing: 1px;
+        }
+        
+        .archive-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-color);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+        
+        .archive-btn:hover {
+            color: var(--text-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+        }
+        
+        .archive-btn:hover::before {
+            left: 0;
+        }
+        
+        /* Заключение */
+        .conclusion {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .conclusion p {
+            margin-bottom: 25px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1rem;
+            color: var(--secondary-color);
+            border-top: 1px solid var(--secondary-color);
+            margin-top: 80px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .pharmacy, .new-sections {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .gallery-title {
+                font-size: 1.9rem;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero .quote {
+                font-size: 1.2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .gallery-item, .remedy {
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero .quote {
+                font-size: 1.1rem;
+                padding: 0 15px;
+            }
+            
+            .gallery-title {
+                font-size: 1.7rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.4rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Вечный Возврат</a>
+            <div class="nav-links">
+                <a href="gallery.html" class="nav-link">Архив Переживаний</a>
+                <a href="pharmacy.html" class="nav-link">Аптека Души</a>
+                <!-- <a href="theater.html" class="nav-link">Театр одного зрителя</a>
+                <a href="silence.html" class="nav-link">Кабинет тишины</a>
+                <a href="grief.html" class="nav-link">Анатомия горя</a> -->
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Заставка -->
+    <div class="hero">
+        <h1>Вечный Возврат</h1>
+        <div class="quote">Любовь должна была быть бессмертной. Но бессмертным оказалось лишь страдание.<br></div>
+        <div class="scroll-indicator">↓</div>
+    </div>
+    
+    <div class="container">
+        <!-- Введение -->
+        <section class="intro">
+            <p>Есть истории, которые пишутся не чернилами, а слезами. Герои этих книг — мы с вами. Это архив тех, кто любил слишком сильно, тех, чьи сердца стали страницами в великой книге человеческих страданий.</p>
+        </section>
+        
+        <!-- Галерея -->
+        <section>
+            <h2 style="font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 50px; color: var(--accent-color); font-size: 2.5rem;">Архив Переживаний</h2>
+            
+            <div class="gallery-item">
+                <h2 class="gallery-title">Трагедия всепоглощающей страсти</h2>
+                <div class="quote-block">
+                    «Он никогда и не узнает, как я его люблю! И люблю не потому, что он красив, Нелли, а потому, что он больше я, чем я сама. Из чего бы ни были сотворены наши души, его душа и моя — одно»<br>
+                    <span style="color: var(--accent-color); display: block; margin-top: 10px;">— Эмили Бронте, «Грозовой перевал»</span>
+                </div>
+                <p class="commentary">Когда любовь становится религией, а возлюбленный — божеством, его уход оставляет после себя не просто пустоту, а крушение всей вселенной. Мы становимся Кэтрин, бродящими по вересковым пустошам в поисках своего Хитклифа, не понимая, что ищем не человека, а часть собственной души.</p>
+            </div>
+            
+            <div class="gallery-item">
+                <h2 class="gallery-title">Элегия несбывшегося</h2>
+                <div class="quote-block">
+                    «Так мы и пытаемся плыть вперед, борясь с течением, а оно все сносит и сносит наши суденышки обратно в прошлое.»<br>
+                    <span style="color: var(--accent-color); display: block; margin-top: 10px;">— Фрэнсис Скотт Фицджеральд, «Великий Гэтсби»</span>
+                </div>
+                <p class="commentary">Мы строим замки из памяти и носим их в себе как реликвии. Гэтсби верил в зеленый огонек, а мы — в сообщения, которые никогда не придут. Как и он, мы пытаемся воссоздать прошлое, не понимая, что оно ушло навсегда, оставив лишь призрачный след в настоящем.</p>
+            </div>
+            
+            <div class="btn-container">
+                <a href="gallery.html" class="archive-btn">Погрузиться в Архив</a>
+            </div>
+        </section>
+        
+        <!-- Аптека для души -->
+        <section>
+            <h2 style="font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 50px; color: var(--accent-color); font-size: 2.5rem;">Аптека для души</h2>
+            <div class="pharmacy">
+                <div class="remedy">
+                    <h3 class="remedy-title">По Толстому</h3>
+                    <p class="remedy-description">«Прочти "Анну Каренину" и пойми, что не ты один страдал от всепоглощающей страсти. Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему — но боль любви универсальна.»</p>
+                </div>
+                
+                <div class="remedy">
+                    <h3 class="remedy-title">По Чехову</h3>
+                    <p class="remedy-description">«Пиши письма, которые никогда не отправишь. Как в "Вишнёвом саде" — оставь прошлое в прошлом. Помни: если в первом акте на сцене висит ружье, в последнем оно должно выстрелить. Не дай своему горю выстрелить в тебя.»</p>
+                </div>
+            </div>
+            
+            <div class="btn-container">
+                <a href="pharmacy.html" class="archive-btn">Открыть Аптеку</a>
+            </div>
+        </section>
+
+        <!-- Новые разделы -->
+        <section>
+            <h2 style="font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 50px; color: var(--accent-color); font-size: 2.5rem;">Новые пространства для души</h2>
+            
+            <div class="new-sections" style="display: flex; justify-content: center;">
+                <div class="section-card" style="grid-column: 1 / -1; max-width: 600px; width: 100%;">
+                    <div class="section-icon">⏳</div>
+                    <h3>Скоро откроется</h3>
+                    <p>Мы готовим для вас новые пространства для рефлексии и исцеления. Театр одного зрителя, Кабинет тишины и Анатомия горя скоро появятся здесь. Это будут уникальные среды для работы с эмоциями через призму литературы и психологии.</p>
+                    <div class="section-btn" style="cursor: default; opacity: 0.7;">Скоро</div>
+                </div>
+                
+                <!-- <div class="section-card">
+                    <div class="section-icon">🎭</div>
+                    <h3>Театр одного зрителя</h3>
+                    <p>Монологи из пьес о несчастной любви. Пространство, где вы становитесь и зрителем, и актером собственной драмы. Здесь оживают слова героев, чья боль перекликается с вашей.</p>
+                    <a href="theater.html" class="section-btn">Войти в театр</a>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-icon">🔇</div>
+                    <h3>Кабинет тишины</h3>
+                    <p>Минималистичное пространство для размышлений. Здесь нет слов — только тишина, которая лечит. Место, где можно остаться наедине со своими мыслями и чувствами.</p>
+                    <a href="silence.html" class="section-btn">Войти в тишину</a>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-icon">📊</div>
+                    <h3>Анатомия горя</h3>
+                    <p>Психологический анализ стадий переживания утраты. Понимание природы боли как путь к исцелению. Исследуйте механизмы горя, чтобы научиться жить с ним.</p>
+                    <a href="grief.html" class="section-btn">Исследовать боль</a>
+                </div> -->
+            </div>
+        </section>
+        
+        <!-- Заключение -->
+        <section class="conclusion">
+            <p>Не исцеление ищем мы в этих текстах, а отражение. Узнавание собственной боли в чужих словах — вот что делает литературу вечной спутницей человеческого сердца.</p>
+            <p>Вы не одиноки в своем переживании. Ваша боль уже когда-то была описана.</p>
+        </section>
+        
+        <!-- Футер -->
+        <footer>
+            <p>Спасибо, что не обнадёживаешь</p>
+        </footer>
+    </div>
+
+    <script>
+        // Анимация появления элементов при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            galleryItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
