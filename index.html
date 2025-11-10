@@ -110,7 +110,35 @@
             <p>Не исцеление ищем мы в этих текстах, а отражение. Узнавание собственной боли в чужих словах — вот что делает литературу вечной спутницей человеческого сердца.</p>
             <p>Вы не одиноки в своем переживании. Ваша боль уже когда-то была описана.</p>
         </section>
-        
+
+        <section class="contact-section">
+            <div class="contact-container">
+                <h2 style="font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 30px; color: var(--accent-color); font-size: 2.5rem;">Обратная связь</h2>
+                
+                <div class="contact-description">
+                    <div class="contact-icon">✎</div>
+                    <p>Здесь можно поделиться своими мыслями, предложениями или пожеланиями по сайту.</p>
+                </div>
+                
+                <form id="contact-form" class="elegant-form">
+                    <div class="form-group">
+                        <textarea 
+                            id="message" 
+                            placeholder="Напишите ваше сообщение..." 
+                            required
+                            rows="5"
+                        ></textarea>
+                        <div class="form-border"></div>
+                    </div>
+                    
+                    <button type="submit" class="elegant-btn">
+                        <span class="btn-text">Отправить сообщение</span>
+                        <span class="btn-icon">🕊️</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
         <!-- Футер -->
         <footer>
             <p>Спасибо, что не обнадёживаешь</p>
@@ -133,6 +161,84 @@
             galleryItems.forEach(item => {
                 observer.observe(item);
             });
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.elegant-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnIcon = submitBtn.querySelector('.btn-icon');
+            const originalText = btnText.textContent;
+            const originalIcon = btnIcon.textContent;
+            const originalBorderColor = submitBtn.style.borderColor;
+            const originalColor = submitBtn.style.color;
+            
+            btnText.textContent = 'Отправка...';
+            btnIcon.textContent = '⏳';
+            submitBtn.style.pointerEvents = 'none';
+            
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxrtChO8AXIvNS11-5FqaBXqXmUYaWtLSV_B6xjRL7G8nldVvxBV6ZIv8oA-H-qTHkm/exec';
+            const message = document.getElementById('message').value;
+            
+            const callbackName = 'jsonp_callback_' + Date.now();
+            const url = `${scriptURL}?message=${encodeURIComponent(message)}&callback=${callbackName}`;
+            
+            const script = document.createElement('script');
+            script.src = url;
+            
+            window[callbackName] = function(response) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                
+                if (response.status === 'success') {
+                    submitBtn.style.borderColor = '#2e8b57';
+                    submitBtn.style.color = '#2e8b57';
+                    btnText.textContent = 'Отправлено!';
+                    btnIcon.textContent = '✓';
+                    
+                    document.getElementById('message').value = '';
+                    
+                    setTimeout(() => {
+                        btnText.textContent = originalText;
+                        btnIcon.textContent = originalIcon;
+                        submitBtn.style.borderColor = originalBorderColor;
+                        submitBtn.style.color = originalColor;
+                        submitBtn.style.pointerEvents = 'auto';
+                    }, 3000);
+                    
+                } else {
+                    btnText.textContent = 'Ошибка!';
+                    btnIcon.textContent = '❌';
+                    submitBtn.style.borderColor = '#dc143c';
+                    submitBtn.style.color = '#dc143c';
+                    
+                    setTimeout(() => {
+                        btnText.textContent = originalText;
+                        btnIcon.textContent = originalIcon;
+                        submitBtn.style.borderColor = originalBorderColor;
+                        submitBtn.style.color = originalColor;
+                        submitBtn.style.pointerEvents = 'auto';
+                    }, 3000);
+                    
+                    alert('Ошибка: ' + response.message);
+                }
+            };
+            
+            setTimeout(() => {
+                if (submitBtn.style.pointerEvents === 'none') {
+                    btnText.textContent = 'Таймаут';
+                    btnIcon.textContent = '⏰';
+                    
+                    setTimeout(() => {
+                        btnText.textContent = originalText;
+                        btnIcon.textContent = originalIcon;
+                        submitBtn.style.pointerEvents = 'auto';
+                    }, 2000);
+                }
+            }, 10000);
+            
+            document.body.appendChild(script);
         });
     </script>
 </body>
