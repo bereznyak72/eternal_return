@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/vechno.png" type="image/x-icon">
+    <title>Литературный морг - Вечный Возврат</title>
+    <meta name="description" content="Эмоциональная смерть литературных персонажей после расставания">
+    <meta name="keywords" content="литература, смерть, эмоции, расставание, любовь, архив">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .corpse-card {
+            margin-bottom: 80px;
+            padding: 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            position: relative;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .corpse-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .corpse-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .corpse-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .corpse-number {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .passport {
+            margin-bottom: 30px;
+        }
+        
+        .passport h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .passport h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            border-radius: 2px;
+        }
+        
+        .passport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .passport-item {
+            display: flex;
+            margin: 12px 0;
+        }
+        
+        .passport-label {
+            min-width: 200px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .passport-value {
+            color: var(--text-color);
+        }
+        
+        .last-words {
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            position: relative;
+            overflow: hidden;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+        
+        .last-words::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .last-words:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .evidence {
+            margin: 35px 0;
+        }
+        
+        .evidence h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .evidence-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .evidence-item {
+            background: var(--accent-light);
+            padding: 12px 20px;
+            border: 1px solid var(--accent-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            color: var(--text-secondary);
+        }
+        
+        .evidence-item:hover {
+            background: rgba(196, 69, 69, 0.2);
+            transform: translateY(-2px);
+            color: var(--text-color);
+        }
+        
+        .conclusion {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            margin-top: 30px;
+        }
+        
+        .conclusion h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .conclusion p {
+            margin: 0;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .passport-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .passport-item {
+                flex-direction: column;
+            }
+            
+            .passport-label {
+                min-width: auto;
+                margin-bottom: 5px;
+            }
+            
+            .corpse-card {
+                padding: 30px;
+            }
+            
+            .evidence-items {
+                gap: 10px;
+            }
+            
+            .evidence-item {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body class="gallery-page">
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">Литературный морг</h1>
+            <p class="page-subtitle">Установление причин эмоциональной смерти персонажей мировой классики</p>
+        </header>
+
+        <div class="corpse-card fade-in">
+            <div class="corpse-number">ТРУП №: 001</div>
+            
+            <div class="passport">
+                <h3>ПАСПОРТ</h3>
+                <div class="passport-grid">
+                    <div class="passport-item">
+                        <span class="passport-label">Личность:</span>
+                        <span class="passport-value">Хитклиф</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Возраст:</span>
+                        <span class="passport-value">30 лет</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Причина:</span>
+                        <span class="passport-value">Смерть Кэтрин</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Диагноз:</span>
+                        <span class="passport-value">Одержимость мёртвой любовью</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Дата смерти:</span>
+                        <span class="passport-value">Ночь похорон Кэтрин</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Место смерти:</span>
+                        <span class="passport-value">Вересковые пустоши у могилы</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="last-words">
+                "Я не могу жить без моей жизни! Я не могу жить без моей души!"
+            </div>
+
+            <div class="evidence">
+                <h4>ВЕЩДОКИ</h4>
+                <div class="evidence-items">
+                    <div class="evidence-item">Вырытая могила Кэтрин</div>
+                    <div class="evidence-item">Проклятия на два поколения</div>
+                    <div class="evidence-item">Замок "Грозовой перевал" как тюрьма памяти</div>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h4>ЗАКЛЮЧЕНИЕ</h4>
+                <p>"Умер, но отказался признать это. Продолжал жить как призрак, мстя всем вокруг за свою боль. Превратил любовь в разрушительную силу, уничтожившую всё вокруг."</p>
+            </div>
+        </div>
+
+        <div class="corpse-card fade-in">
+            <div class="corpse-number">ТРУП №: 002</div>
+            
+            <div class="passport">
+                <h3>ПАСПОРТ</h3>
+                <div class="passport-grid">
+                    <div class="passport-item">
+                        <span class="passport-label">Личность:</span>
+                        <span class="passport-value">Анна Каренина</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Возраст:</span>
+                        <span class="passport-value">28 лет</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Причина:</span>
+                        <span class="passport-value">Разрыв с Вронским и общественное осуждение</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Диагноз:</span>
+                        <span class="passport-value">Социальная и эмоциональная изоляция</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Дата смерти:</span>
+                        <span class="passport-value">День отъезда Вронского в Петербург</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Место смерти:</span>
+                        <span class="passport-value">Московский вокзал</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="last-words">
+                "Господи, прости мне всё!"
+            </div>
+
+            <div class="evidence">
+                <h4>ВЕЩДОКИ</h4>
+                <div class="evidence-items">
+                    <div class="evidence-item">Неотправленные письма Вронскому</div>
+                    <div class="evidence-item">Разорванная семейная жизнь</div>
+                    <div class="evidence-item">Последний билет на поезд</div>
+                    <div class="evidence-item">Обручальное кольцо, оставленное дома</div>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h4>ЗАКЛЮЧЕНИЕ</h4>
+                <p>"Не выдержала разрыва между страстью и долгом. Выбрала физическую смерть вместо жизни в эмоциональном вакууме. Общество убило её раньше, чем поезд."</p>
+            </div>
+        </div>
+
+        <div class="corpse-card fade-in">
+            <div class="corpse-number">ТРУП №: 003</div>
+            
+            <div class="passport">
+                <h3>ПАСПОРТ</h3>
+                <div class="passport-grid">
+                    <div class="passport-item">
+                        <span class="passport-label">Личность:</span>
+                        <span class="passport-value">Джей Гэтсби</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Возраст:</span>
+                        <span class="passport-value">32 года</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Причина:</span>
+                        <span class="passport-value">Потеря Дэзи</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Диагноз:</span>
+                        <span class="passport-value">Одержимость прошлым</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Дата смерти:</span>
+                        <span class="passport-value">Момент понимания, что Дэзи не уйдёт от Тома</span>
+                    </div>
+                    <div class="passport-item">
+                        <span class="passport-label">Место смерти:</span>
+                        <span class="passport-value">Отель "Плаза"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="last-words">
+                "Нельзя вернуть прошлое? Почему нельзя? Можно!"
+            </div>
+
+            <div class="evidence">
+                <h4>ВЕЩДОКИ</h4>
+                <div class="evidence-items">
+                    <div class="evidence-item">Недогоревший зелёный огонёк</div>
+                    <div class="evidence-item">Особняк-пустышка</div>
+                    <div class="evidence-item">Разбитые часы</div>
+                    <div class="evidence-item">Нераспечатанные приглашения на вечеринки</div>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h4>ЗАКЛЮЧЕНИЕ</h4>
+                <p>"Умер в момент, когда понял, что нельзя вернуть прошлое. Весь его мир был построен на иллюзии. Зелёный свет оказался миражом, а великий Гэтсби — пустым местом."</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-btn">Вернуться на Главную</a>
+        </div>
+
+        <footer>
+            <p>Спасибо, что не обнадёживаешь</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
