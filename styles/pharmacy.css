@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --dark-bg: #0f0f0f;
+  --darker-bg: #0a0a0a;
+  --text-color: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --accent-color: #c44545;
+  --accent-hover: #d15656;
+  --accent-light: rgba(196, 69, 69, 0.1);
+  --secondary-color: #5a5a5a;
+  --card-bg: rgba(30, 30, 30, 0.7);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.4);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  line-height: 1.7;
+  font-size: 18px;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(196, 69, 69, 0.03) 0%, transparent 20%),
+    radial-gradient(circle at 85% 30%, rgba(196, 69, 69, 0.03) 0%, transparent 20%),
+    radial-gradient(circle at 50% 80%, rgba(196, 69, 69, 0.03) 0%, transparent 20%);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+section {
+  padding: 50px 0 100px;
+}
+
+.page-header {
+  text-align: center;
+  padding: 130px 0 70px;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--text-color);
+  margin-bottom: 25px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.page-subtitle {
+  font-size: 1.4rem;
+  max-width: 700px;
+  margin: 0 auto;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.remedy-card {
+  margin-bottom: 80px;
+  padding: 45px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  position: relative;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.remedy-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-color);
+  transform: scaleY(0);
+  transition: transform 0.4s ease;
+}
+
+.remedy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.remedy-card:hover::before {
+  transform: scaleY(1);
+}
+
+.remedy-card:last-of-type {
+  margin-bottom: 0;
+}
+
+.remedy-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  margin-bottom: 1.8rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-bottom: 15px;
+  font-weight: 600;
+}
+
+.remedy-title::before {
+  content: "♡";
+  margin-right: 18px;
+  font-size: 2.2rem;
+  color: var(--accent-color);
+}
+
+.remedy-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), transparent);
+  border-radius: 2px;
+}
+
+.remedy-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: var(--text-secondary);
+}
+
+.prescription {
+  margin-top: 35px;
+  padding: 28px;
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.prescription::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.prescription:hover::before {
+  transform: translateX(100%);
+}
+
+.prescription-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.prescription p {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.prescription p:last-child {
+  margin-bottom: 0;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 35px;
+  background: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
+  margin: 40px 0;
+}
+
+.back-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-color);
+  transition: left 0.4s;
+  z-index: -1;
+}
+
+.back-btn:hover {
+  color: var(--text-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(196, 69, 69, 0.3);
+}
+
+.back-btn:hover::before {
+  left: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 1rem;
+  color: var(--secondary-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 80px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 5px;
+  border: 2px solid var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--dark-bg);
+}
+
+::selection {
+  background: var(--accent-color);
+  color: var(--text-color);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  .remedy-card {
+    padding: 35px;
+    margin-bottom: 60px;
+  }
+  
+  section {
+    padding: 30px 0 80px;
+  }
+}
+
+@media (max-width: 650px) {
+  .remedy-card {
+    padding: 30px;
+    margin-bottom: 50px;
+  }
+  
+  .page-title {
+    font-size: 2.3rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .remedy-description {
+    font-size: 1.1rem;
+  }
+  
+  .prescription {
+    padding: 20px;
+  }
+  
+  .prescription p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .remedy-card {
+    padding: 25px;
+    margin-bottom: 40px;
+  }
+  
+  .back-btn {
+    padding: 14px 25px;
+    font-size: 1rem;
+  }
+  
+  .page-header {
+    padding: 100px 0 50px;
+  }
+  
+  .prescription {
+    padding: 18px;
+  }
+}
